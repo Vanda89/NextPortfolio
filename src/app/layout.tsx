@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import "./globals.css";
 import Header from "../components/common/Header";
 import Footer from "../components/common/Footer";
+import { ThemeProvider } from "next-themes";
+import { NextUIProvider } from "@nextui-org/react";
 
 export const metadata: Metadata = {
   title: "Portfolio de Sandrine ALCAZAR - Développeuse Front-end",
@@ -10,12 +12,13 @@ export const metadata: Metadata = {
   keywords:
     "développeur front-end, portfolio, création de sites web, développement React, développement Next.js",
   robots: "index, follow",
-  viewport: "width=device-width, initial-scale=1.0",
   authors: [{ name: "Sandrine ALCAZAR", url: "" }],
   icons: {
     icon: "/favicon.ico",
   },
 };
+
+export const viewport = "width=device-width, initial-scale=1.0";
 
 export default function RootLayout({
   children,
@@ -24,10 +27,14 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`antialiased`}>
-        <Header />
-        <main>{children}</main>
-        <Footer />
+      <body className="antialiased max-w-7xl px-8 mx-auto">
+        <NextUIProvider>
+          <ThemeProvider attribute="class" defaultTheme="light" enableSystem>
+            <Header />
+            <main className="flex flex-col   ">{children}</main>
+            <Footer />
+          </ThemeProvider>
+        </NextUIProvider>
       </body>
     </html>
   );
